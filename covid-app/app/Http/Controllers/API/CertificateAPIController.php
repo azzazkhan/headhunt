@@ -27,20 +27,20 @@ class CertificateAPIController extends Controller
     public function store(Request $request) {
         $user = auth('api')->user(); // Get the current logged in user
 
-        $attempts = (int) $user->certificates()->count();
-        // Provider has reached the limit of maximum certificate uploads
-        if ($attempts >= Certificate::MAX_UPLOAD_ATTEMPTS)
-            return response()->json([
-                'success' => false,
-                'message' => 'Max certificate creation attempts reached!'
-            ], 406);
-
         $unRejectedCertificatesCount = (int) $user->certificates()->where('status', '!=', 'rejected')->count();
         // Make sure the provider does not already has a pending/approved certificate
         if ($unRejectedCertificatesCount > 0)
             return response()->json([
                 'success' => false,
                 'message' => 'Either a certificate is already awaiting for approval or it is already approved!'
+            ], 406);
+
+        $attempts = (int) $user->certificates()->count();
+        // Provider has reached the limit of maximum certificate uploads
+        if ($attempts >= Certificate::MAX_UPLOAD_ATTEMPTS)
+            return response()->json([
+                'success' => false,
+                'message' => 'Max certificate creation attempts reached!'
             ], 406);
 
         // Make sure the file was uploaded successfully
