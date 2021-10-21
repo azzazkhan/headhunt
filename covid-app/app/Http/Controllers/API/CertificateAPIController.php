@@ -27,7 +27,7 @@ class CertificateAPIController extends Controller
     public function store(Request $request) {
         $user = auth('api')->user(); // Get the current logged in user
 
-        $attempts = (int) $user->certificate()->count();
+        $attempts = (int) $user->certificates()->count();
         // Provider has reached the limit of maximum certificate uploads
         if ($attempts >= Certificate::MAX_UPLOAD_ATTEMPTS)
             return response()->json([
@@ -101,7 +101,6 @@ class CertificateAPIController extends Controller
             // Create a new certificate for current logged in user
             $certificate = $user->certificates()->create([
                 'ref' => $uuid,
-                'user_id' => $user->id
                 // By default the status will be set to `pending` at database level
             ]);
         } catch (Exception $e) {
@@ -161,8 +160,26 @@ class CertificateAPIController extends Controller
     }
 
     public function myCertificate(Request $request) {
+        $user = auth('api')->user();
+        
+        // Get user's latest certificate
+        $certificate = $user->certificates()->orderBy('id', 'desc')->limit(1)->first();
+
+        // Send a 404 response which means that user has not submitted a certificate yet
+        if (! $certificate)
+            return response()->json([
+                'success' => false,
+                'message' => 'No certificates found!'
+            ]);
+
+        $filename = $certificate->ref . ".jpg";
+
         return [
             'success' => true,
+            'data' => [
+                'ref' => $certificate->ref,
+                'image' => url(Storage::url('certificates/' . $filename))
+            ],
             'message' => 'Successfully retrieved personal certificate'
         ];
     }
