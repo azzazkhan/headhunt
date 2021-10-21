@@ -24,12 +24,15 @@ class CertificateAPIController extends Controller
         if ($user->certificate()->first())
             return response()->json([
                 'success' => false,
-                'message' => 'Provider already submitted a certificate!'
+                'message' => 'Provider already has submitted a certificate!'
             ], 400);
 
         // Check if file was successfully uploaded
         if (! $request->hasFile('certificate'))
-            return abort(400, 'Invalid or corrupt file provided!');
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid or corrupt file provided!'
+            ], 400);
 
         
         $image = $request->file('certificate'); // Get the uploaded file
@@ -53,7 +56,7 @@ class CertificateAPIController extends Controller
             // Return error JSON response
             return response()->json([
                 'success' => false,
-                'error' => "An error occurred while saving certificate file!",
+                'message' => "An error occurred while saving certificate file!",
             ], 500);
         }
 
@@ -80,7 +83,7 @@ class CertificateAPIController extends Controller
             // Return error JSON response
             return response()->json([
                 'success' => false,
-                'error' => "An error occurred while saving certificate!",
+                'message' => "An error occurred while saving certificate!",
             ], 500);
         }
 
@@ -102,12 +105,16 @@ class CertificateAPIController extends Controller
         $user = auth('api')->user();
 
         // Provider can only view his own certificate
-        if ($user->id !== $certificate->user()->id) abort(403);
+        if ($user->id !== $certificate->user()->id)
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot view someone else\'s certificate!'
+            ], 403);
 
         $filename = $certificate->ref . ".jpg";
 
         // Respond with the certificate uid and image path
-        return response()->json([
+        return [
             'success' => true,
             'error' => null,
             'data' => [
@@ -117,14 +124,20 @@ class CertificateAPIController extends Controller
                     'image' => Storage::url('certificates/' . $filename)
                 ]
             ]
-        ]);
+        ];
     }
 
     /**
      * Admin accessible methods
      */
     public function index(Request $request) {
-        return Certificate::all();
+        return [
+            'success' => true,
+            'data' => [
+                'certificates' => Certificate::all()
+            ],
+            'message' => 'Successfully retrieved all certificates!'
+        ];
     }
 
     public function update(Request $request, Certificate $certificate) {
@@ -132,7 +145,10 @@ class CertificateAPIController extends Controller
 
         // Only status can be updated
         if (! is_string($status) || ! preg_match('/$(approved|rejected)^/'))
-            return abort(400, 'Provided invalid value for "status" field!');
+            return response()->json([
+                'success' => false,
+                'message' => 'Provided invalid value for "status" field!'
+            ], 400);
         
         $old_status = $certificate->status;
 
@@ -161,16 +177,43 @@ class CertificateAPIController extends Controller
         }
 
         // Certificate was updated successfully
-        return response()->json([
+        return [
             'success' => true,
-            'error' => null,
             'data' => [
-                'certificate' => $certificate
-            ]
-        ]);
+                'certificate' => [
+                    'id' => $certificate->id,
+                    'ref' => $certificate->ref,
+                    'image' => Storage::url('certificates/' . $filename)
+                ]
+            ],
+            'message' => 'The certificate was updated successfully!'
+        ];
     }
 
     public function delete(Certificate $certificate) {
+        // Try to delete certificate image from storage
+        try {
+            Storage::delete('certificates/' . $certificate->ref . ".jpg");
+        }
+        // Return error response and log the event to logger
+        catch (Exception $e) {
+            $message = $e->getMessage();
+            $message = empty($message) || is_null($message) ? "Unknown error" : $message;
+            
+            // Log the message to logger
+            Log::error("An error occurred while deleting certificate image", [
+                'error' => $message,
+                'id' => $certificate->id
+            ]);
+
+            // Return error JSON response
+            return response()->json([
+                'success' => false,
+                'message' => "An error occurred while deleting certificate image",
+            ], 500);
+        }
+
+        // Try to delete certificate record from database
         try {
             $certificate->delete();
         }
@@ -188,17 +231,14 @@ class CertificateAPIController extends Controller
             // Return error JSON response
             return response()->json([
                 'success' => false,
-                'error' => $message,
+                'message' => "An error occurred while deleting certificate!",
             ], 500);
         }
 
         // Certificate was deleted successfully
-        return response()->json([
+        return [
             'success' => true,
-            'error' => null,
-            'data' => [
-                'certificate' => $certificate
-            ]
-        ]);
+            'message' => 'Certificate was deleted successfully!'
+        ];
     }
 }
