@@ -61,7 +61,7 @@ class CertificateAPIController extends Controller
             ]);
 
             // Create a new certificate for current logged in user
-            $user->certificate->create($certificate);
+            $user->certificate()->create($certificate);
         } catch (Exception $e) {
             $message = $e->getMessage();
             $message = empty($message) || is_null($message) ? "Unknown error" : $message;
