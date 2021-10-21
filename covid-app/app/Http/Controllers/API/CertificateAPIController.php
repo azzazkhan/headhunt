@@ -95,7 +95,7 @@ class CertificateAPIController extends Controller
                 'certificate' => [
                     'id' => $certificate->id,
                     'ref' => $certificate->ref, // Unique certificate ID
-                    'image' => Storage::url('certificates/' . $filename)
+                    'image' => url(Storage::url('certificates/' . $filename))
                 ]
             ]
         ]);
@@ -121,7 +121,7 @@ class CertificateAPIController extends Controller
                 'certificate' => [
                     'id' => $certificate->id,
                     'ref' => $certificate->ref, // Unique certificate ID
-                    'image' => Storage::url('certificates/' . $filename)
+                    'image' => url(Storage::url('certificates/' . $filename))
                 ]
             ]
         ];
@@ -183,7 +183,7 @@ class CertificateAPIController extends Controller
                 'certificate' => [
                     'id' => $certificate->id,
                     'ref' => $certificate->ref,
-                    'image' => Storage::url('certificates/' . $filename)
+                    'image' => url(Storage::url('certificates/' . $filename))
                 ]
             ],
             'message' => 'The certificate was updated successfully!'
