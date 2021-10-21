@@ -54,16 +54,14 @@ Route::get('e_service_reviews/{id}', 'API\EServiceReviewAPIController@show')->na
 Route::get('e_service_reviews', 'API\EServiceReviewAPIController@index')->name('e_service_reviews.index');
 
 Route::resource('currencies', 'API\CurrencyAPIController');
-Route::resource('slides', 'API\SlideAPIController')->except([
-    'show'
-]);
-Route::resource('booking_statuses', 'API\BookingStatusAPIController')->except([
-    'show'
-]);
+Route::resource('slides', 'API\SlideAPIController')->except(['show']);
+Route::resource('booking_statuses', 'API\BookingStatusAPIController')->except(['show']);
 Route::resource('option_groups', 'API\OptionGroupAPIController');
 Route::resource('options', 'API\OptionAPIController');
 
+// Authenticatable routes
 Route::middleware('auth:api')->group(function () {
+    // Routes accessible by `Provider`
     Route::group(['middleware' => ['role:provider']], function () {
         Route::prefix('provider')->group(function () {
             Route::post('users/{user}', 'API\UserAPIController@update');
@@ -73,37 +71,55 @@ Route::middleware('auth:api')->group(function () {
             Route::get('e_service_reviews', 'API\EServiceReviewAPIController@index')->name('e_service_reviews.index');
             Route::get('e_services', 'API\EServiceAPIController@index')->name('e_services.index');
             Route::put('payments/{id}', 'API\PaymentAPIController@update')->name('payments.update');
+
+            // Custom covid certificate routes
+            Route::post('certificate', 'API\CertificateAPIController@store');
+            Route::get('certificate/{certificate:ref}', 'API\CertificateAPIController@show');
         });
     });
+
+    // Routes accessible by `Admin`
+    Route::group(['middleware' => ['role:admin']], function () {
+        // Custom covid certificate routes
+        Route::get('certificate', 'API\CertificateAPIController@index');
+        Route::put('certificate/{certificate:ref}', 'API\CertificateAPIController@update');
+        Route::patch('certificate/{certificate:ref}', 'API\CertificateAPIController@update');
+        Route::delete('certificate/{certificate:ref}', 'API\CertificateAPIController@delete');
+    });
+
+    // Routes accessible by all authenticated users
+
+    // Uploads manager
     Route::post('uploads/store', 'API\UploadAPIController@store');
     Route::post('uploads/clear', 'API\UploadAPIController@clear');
+
+    // Profile management
     Route::post('users/{user}', 'API\UserAPIController@update');
 
+    // Payment management
     Route::get('payments/byMonth', 'API\PaymentAPIController@byMonth')->name('payments.byMonth');
     Route::post('payments/wallets/{id}', 'API\PaymentAPIController@wallets')->name('payments.wallets');
     Route::post('payments/cash', 'API\PaymentAPIController@cash')->name('payments.cash');
-    Route::resource('payment_methods', 'API\PaymentMethodAPIController')->only([
-        'index'
-    ]);
-    Route::post('e_service_reviews', 'API\EServiceReviewAPIController@store')->name('e_service_reviews.store');
+    Route::resource('payment_methods', 'API\PaymentMethodAPIController')->only(['index']);
 
+    Route::resource('favorites', 'API\FavoriteAPIController'); // Favorites
+    Route::resource('addresses', 'API\AddressAPIController'); // Addresses
 
-    Route::resource('favorites', 'API\FavoriteAPIController');
-    Route::resource('addresses', 'API\AddressAPIController');
-
+    // Notifications
     Route::get('notifications/count', 'API\NotificationAPIController@count');
     Route::resource('notifications', 'API\NotificationAPIController');
-    Route::resource('bookings', 'API\BookingAPIController');
 
-    Route::resource('earnings', 'API\EarningAPIController');
+    Route::resource('bookings', 'API\BookingAPIController'); // Bookings
+    Route::resource('earnings', 'API\EarningAPIController'); // Earning (e.g referrals)
 
-    Route::resource('e_provider_payouts', 'API\EProviderPayoutAPIController');
+    // Coupon code management
+    Route::resource('coupons', 'API\CouponAPIController')->except(['show']);
 
-    Route::resource('coupons', 'API\CouponAPIController')->except([
-        'show'
-    ]);
-    Route::resource('wallets', 'API\WalletAPIController')->except([
-        'show', 'create', 'edit'
-    ]);
+    // Wallet management
+    Route::resource('wallets', 'API\WalletAPIController')->except(['show', 'create', 'edit']);
     Route::get('wallet_transactions', 'API\WalletTransactionAPIController@index')->name('wallet_transactions.index');
+
+    // Unknown
+    Route::resource('e_provider_payouts', 'API\EProviderPayoutAPIController');
+    Route::post('e_service_reviews', 'API\EServiceReviewAPIController@store')->name('e_service_reviews.store');
 });

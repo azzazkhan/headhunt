@@ -8,16 +8,24 @@
 
 namespace App\Models;
 
+// Eloquent Relations
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+
+// Traits
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
-use Spatie\Image\Exceptions\InvalidManipulation;
-use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Permission\Traits\HasRoles;
+
+// Exceptions
+use Spatie\Image\Exceptions\InvalidManipulation;
+use Spatie\Image\Manipulations;
+
+// Classes & Interfaces
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 
 /**
  * Class User
@@ -55,6 +63,7 @@ class User extends Authenticatable implements HasMedia
     ];
 
     public $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -69,6 +78,7 @@ class User extends Authenticatable implements HasMedia
         'api_token',
         'device_token',
     ];
+
     /**
      * The attributes that should be casted to native types.
      *
@@ -85,6 +95,7 @@ class User extends Authenticatable implements HasMedia
         'device_token' => 'string',
         'remember_token' => 'string'
     ];
+
     /**
      * New Attributes
      *
@@ -105,7 +116,7 @@ class User extends Authenticatable implements HasMedia
     ];
 
     /**
-     * Route notifications for the FCM channel.
+     * Route notifications for the FCM (Firebase Cloud Messaging) channel.
      *
      * @param \Illuminate\Notifications\Notification $notification
      * @return string|null
@@ -188,4 +199,11 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(EProvider::class, 'e_provider_users');
     }
 
+    /**
+     * @return HasOne
+     */
+    public function certificate(): HasOne
+    {
+        $this->hasOne(Certificate::class, 'user_id');
+    }
 }
