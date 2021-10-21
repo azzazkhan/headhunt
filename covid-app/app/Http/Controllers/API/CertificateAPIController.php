@@ -3,14 +3,21 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 
+// Models
 use App\Models\User;
 use App\Models\Certificate;
 
-use Illuminate\Http\Request;
+// Facades
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Image;
+
+// Utilities
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
+// Packages
+// use Intervention\Image\ImageManagerStatic as Image;
 
 class CertificateAPIController extends Controller
 {
@@ -20,12 +27,22 @@ class CertificateAPIController extends Controller
     public function store(Request $request) {
         $user = auth('api')->user(); // Get the current logged in user
 
-        // Make sure the provider does not already created a certificate before!
-        if ($user->certificate()->first())
+        $attempts = (int) $user->certificate()->count();
+        // Provider has reached the limit of maximum certificate uploads
+        if ($attempts >= Certificate::MAX_UPLOAD_ATTEMPTS)
             return response()->json([
                 'success' => false,
-                'message' => 'Provider already has submitted a certificate!'
-            ], 400);
+                'data' => compact('attempts'),
+                'message' => 'Max certificate creation attempts reached!'
+            ], 406);
+
+        $unRejectedCertificatesCount = (int) $user->certificates()->where('status', '!=', 'rejected')->count();
+        // Make sure the provider does not already has a pending/approved certificate
+        if ($unRejectedCertificatesCount > 0)
+            return response()->json([
+                'success' => false,
+                'message' => 'Either a certificate is already awaiting for approval or it is already approved!'
+            ], 406);
 
         // Make sure the file was uploaded successfully
         if (! $request->hasFile('certificate') || !$request->file('certificate')->isValid())
@@ -36,13 +53,32 @@ class CertificateAPIController extends Controller
 
         
         $image = $request->file('certificate'); // Get the uploaded file
+        $extension = $image->extension();
+
+        if (! preg_match('/(png|jpg|jpeg|webp|bmp)/i', $extension))
+            return response()->json([
+                'success' => false,
+                'data' => compact('extension'),
+                'message' => 'Only image are accepted as certificate document!'
+            ], 400);
+
+
         $uuid = Str::orderedUuid(); // Generate a unique ID for certificate
         $filename = $uuid . "." . /* $image->extension() */ "jpg";
 
         // Try to save the uploaded file under `/storage/certificates` directory
+        // and process it using the Intervention package
         try {
             // Save the image to specified path
             $path = $image->storeAs('certificates', $filename);
+
+            // Process the image
+            $img = Image::make($path);
+            $image->resize(1000, 1000);
+
+            // Save the image to storage and free up memory
+            $img->save($path);
+            $img->destroy();
         } catch (Exception $e) {
             $message = $e->getMessage();
             $message = empty($message) || is_null($message) ? "Unknown error" : $message;
@@ -63,7 +99,7 @@ class CertificateAPIController extends Controller
         // Try to create new record for certificate in the database
         try {
             // Create a new certificate for current logged in user
-            $certificate = $user->certificate()->create([
+            $certificate = $user->certificates()->create([
                 'ref' => $uuid,
                 'user_id' => $user->id
                 // By default the status will be set to `pending` at database level
@@ -124,6 +160,13 @@ class CertificateAPIController extends Controller
         ];
     }
 
+    public function myCertificate(Request $request) {
+        return [
+            'success' => true,
+            'message' => 'Successfully retrieved personal certificate'
+        ];
+    }
+
     /**
      * Admin accessible methods
      */
@@ -147,6 +190,7 @@ class CertificateAPIController extends Controller
         if (! is_string($status) || ! preg_match('/$(approved|rejected)^/', $status))
             return response()->json([
                 'success' => false,
+                'data' => compact('status'),
                 'message' => 'Provided invalid value for "status" field!'
             ], 400);
         

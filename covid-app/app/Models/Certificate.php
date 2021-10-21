@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Certificate extends Model
 {
+    const MAX_UPLOAD_ATTEMPTS = 5;
+
     /**
      * The table associated with the model.
      *

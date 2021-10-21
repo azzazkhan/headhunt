@@ -10,7 +10,7 @@ namespace App\Models;
 
 // Eloquent Relations
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 // Traits
@@ -200,10 +200,10 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return HasOne
+     * @return HasMany
      */
-    public function certificate(): HasOne
+    public function certificates(): HasMany
     {
-        return $this->hasOne(Certificate::class, 'user_id');
+        return $this->hasMany(Certificate::class, 'user_id');
     }
 }

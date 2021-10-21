@@ -74,6 +74,7 @@ Route::middleware('auth:api')->group(function () {
 
             // Custom covid certificate routes
             Route::post('certificate', 'API\CertificateAPIController@store');
+            Route::get('certificate/my-certificate', 'API\CertificateAPIController@myCertificate');
             Route::get('certificate/{certificate:ref}', 'API\CertificateAPIController@show');
         });
     });
