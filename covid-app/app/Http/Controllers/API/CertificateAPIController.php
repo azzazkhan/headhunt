@@ -20,6 +20,13 @@ class CertificateAPIController extends Controller
     public function store(Request $request) {
         $user = auth('api')->user();
 
+        // Provider already sent a certificate
+        if ($user->certificate()->first())
+            return response()->json([
+                'success' => false,
+                'message' => 'Provider already submitted a certificate!'
+            ], 400);
+
         // Check if file was successfully uploaded
         if (! $request->hasFile('certificate'))
             return abort(400, 'Invalid or corrupt file provided!');
