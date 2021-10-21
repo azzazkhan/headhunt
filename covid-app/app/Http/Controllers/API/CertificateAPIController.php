@@ -28,7 +28,7 @@ class CertificateAPIController extends Controller
             ], 400);
 
         // Make sure the file was uploaded successfully
-        if (! $request->hasFile('certificate') || !$request->file('certificate')->verify())
+        if (! $request->hasFile('certificate') || !$request->file('certificate')->isValid())
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid or corrupt file provided!'
