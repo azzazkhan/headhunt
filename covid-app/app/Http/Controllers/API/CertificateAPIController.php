@@ -127,6 +127,7 @@ class CertificateAPIController extends Controller
             'data' => [
                 'certificate' => [
                     'ref' => $certificate->ref, // Unique certificate ID
+                    'status' => 'pending',
                     'image' => url(Storage::url('certificates/' . $filename))
                 ]
             ],
@@ -152,6 +153,7 @@ class CertificateAPIController extends Controller
             'data' => [
                 'certificate' => [
                     'ref' => $certificate->ref, // Unique certificate ID
+                    'status' => $certificate->status,
                     'image' => url(Storage::url('certificates/' . $filename))
                 ]
             ],
@@ -178,6 +180,7 @@ class CertificateAPIController extends Controller
             'success' => true,
             'data' => [
                 'ref' => $certificate->ref,
+                'status' => $certificate->status,
                 'image' => url(Storage::url('certificates/' . $filename))
             ],
             'message' => 'Successfully retrieved personal certificate'
@@ -208,7 +211,7 @@ class CertificateAPIController extends Controller
             return response()->json([
                 'success' => false,
                 'data' => compact('status'),
-                'message' => 'Provided invalid value for "status" field!'
+                'message' => 'Invalid value provided for "status" field!'
             ], 400);
         
         // Keep track of original status (will be used for logging errors)
@@ -250,6 +253,7 @@ class CertificateAPIController extends Controller
             'data' => [
                 'certificate' => [
                     'ref' => $certificate->ref,
+                    'status' => $certificate->status,
                     'image' => url(Storage::url('certificates/' . $filename))
                 ]
             ],
