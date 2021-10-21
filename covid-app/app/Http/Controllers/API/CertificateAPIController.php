@@ -204,7 +204,7 @@ class CertificateAPIController extends Controller
         $status = $request->input('status', null);
 
         // Status must be present with one of two values (`approved` or `rejected`)
-        if (! is_string($status) || ! preg_match('/$(approved|rejected)^/', $status))
+        if (! is_string($status) || ! preg_match('/^(approved|rejected)$/', $status))
             return response()->json([
                 'success' => false,
                 'data' => compact('status'),

@@ -127,13 +127,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('e_service_reviews', 'API\EServiceReviewAPIController@store')->name('e_service_reviews.store');
 });
 
-// Route::any('/{any?}', function () {
-//     return response()->json([
-//         'success' => false,
-//         'message' => 'The request URL was not found!'
-//     ], 404);
-// })->where('any', '.*');
-
 Route::fallback(function () {
     return response()->json([
         'success' => false,
