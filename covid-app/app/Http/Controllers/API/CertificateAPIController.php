@@ -74,7 +74,7 @@ class CertificateAPIController extends Controller
 
             // Process the image
             $img = Image::make('storage/certificates/' . $filename);
-            $image->resize(1000, 1000);
+            $img->resize(1000, 1000);
 
             // Save the image to storage and free up memory
             $img->save('storage/certificates/' . $filename);
