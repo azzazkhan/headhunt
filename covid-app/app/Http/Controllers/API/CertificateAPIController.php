@@ -32,7 +32,6 @@ class CertificateAPIController extends Controller
         if ($attempts >= Certificate::MAX_UPLOAD_ATTEMPTS)
             return response()->json([
                 'success' => false,
-                'data' => compact('attempts'),
                 'message' => 'Max certificate creation attempts reached!'
             ], 406);
 
@@ -58,7 +57,6 @@ class CertificateAPIController extends Controller
         if (! preg_match('/(png|jpg|jpeg|webp|bmp)/i', $extension))
             return response()->json([
                 'success' => false,
-                'data' => compact('extension'),
                 'message' => 'Only image are accepted as certificate document!'
             ], 400);
 
@@ -71,11 +69,11 @@ class CertificateAPIController extends Controller
         try {
             // Save the image to specified path
             $path = $image->storeAs('certificates', $filename);
-            $filePath = 'storage/certificates/' . $filename;
+            $filePath = 'storage/certificates/thumbnails/' . $filename;
 
             // Process the image
             $img = Image::make($filePath);
-            $img->resize(1000, 1000);
+            $img->resize(300, 300);
 
             // Save the image to storage and free up memory
             $img->save($filePath);
@@ -180,9 +178,11 @@ class CertificateAPIController extends Controller
         return [
             'success' => true,
             'data' => [
-                'ref' => $certificate->ref,
-                'status' => $certificate->status,
-                'image' => url(Storage::url('certificates/' . $filename))
+                'certificate' => [
+                    'ref' => $certificate->ref,
+                    'status' => $certificate->status,
+                    'image' => url(Storage::url('certificates/' . $filename))
+                ]
             ],
             'message' => 'Successfully retrieved personal certificate'
         ];
@@ -211,7 +211,6 @@ class CertificateAPIController extends Controller
         if (! is_string($status) || ! preg_match('/^(approved|rejected)$/', $status))
             return response()->json([
                 'success' => false,
-                'data' => compact('status'),
                 'message' => 'Invalid value provided for "status" field!'
             ], 400);
         
@@ -268,6 +267,7 @@ class CertificateAPIController extends Controller
         // Try to delete certificate image from storage
         try {
             Storage::delete('certificates/' . $filename);
+            Storage::delete('certificates/thumbnails/' . $filename);
         }
         // Return error response and log the event to logger
         catch (Exception $e) {
