@@ -80,11 +80,13 @@ Route::middleware('auth:api')->group(function () {
 
     // Routes accessible by `Admin`
     Route::group(['middleware' => ['role:admin']], function () {
-        // Custom covid certificate routes
-        Route::get('certificate', 'API\CertificateAPIController@index');
-        Route::put('certificate/{certificate:ref}', 'API\CertificateAPIController@update');
-        Route::patch('certificate/{certificate:ref}', 'API\CertificateAPIController@update');
-        Route::delete('certificate/{certificate:ref}', 'API\CertificateAPIController@delete');
+        Route::prefix('admin')->group(function () {
+            // Custom covid certificate routes
+            Route::get('certificate', 'API\CertificateAPIController@index');
+            Route::put('certificate/{certificate:ref}', 'API\CertificateAPIController@update');
+            Route::patch('certificate/{certificate:ref}', 'API\CertificateAPIController@update');
+            Route::delete('certificate/{certificate:ref}', 'API\CertificateAPIController@delete');
+        });
     });
 
     // Routes accessible by all authenticated users
