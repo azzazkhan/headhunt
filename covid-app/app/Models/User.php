@@ -204,6 +204,6 @@ class User extends Authenticatable implements HasMedia
      */
     public function certificate(): HasOne
     {
-        $this->hasOne(Certificate::class, 'user_id');
+        return $this->hasOne(Certificate::class, 'user_id');
     }
 }
