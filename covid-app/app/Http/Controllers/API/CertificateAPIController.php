@@ -18,17 +18,17 @@ class CertificateAPIController extends Controller
      * Provider accessible methods
      */
     public function store(Request $request) {
-        $user = auth('api')->user();
+        $user = auth('api')->user(); // Get the current logged in user
 
-        // Provider already sent a certificate
+        // Make sure the provider does not already created a certificate before!
         if ($user->certificate()->first())
             return response()->json([
                 'success' => false,
                 'message' => 'Provider already has submitted a certificate!'
             ], 400);
 
-        // Check if file was successfully uploaded
-        if (! $request->hasFile('certificate'))
+        // Make sure the file was uploaded successfully
+        if (! $request->hasFile('certificate') || !$request->file('certificate')->verify())
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid or corrupt file provided!'
@@ -39,8 +39,7 @@ class CertificateAPIController extends Controller
         $uuid = Str::orderedUuid(); // Generate a unique ID for certificate
         $filename = $uuid . "." . /* $image->extension() */ "jpg";
 
-        // Try to save the uploaded file under `/storage/certificates` directory,
-        // handle error and send appropriate response to the client
+        // Try to save the uploaded file under `/storage/certificates` directory
         try {
             // Save the image to specified path
             $path = $image->storeAs('certificates', $filename);
@@ -50,18 +49,18 @@ class CertificateAPIController extends Controller
             
             // Log the message to logger
             Log::error("An error occurred while saving certificate file!", [
-                'error' => $message
+                'error' => $message,
+                'filename' => $filename
             ]);
     
             // Return error JSON response
             return response()->json([
                 'success' => false,
-                'message' => "An error occurred while saving certificate file!",
+                'message' => "An error occurred while saving certificate!",
             ], 500);
         }
 
-        // Try to create new record for certificate in the database, handle error
-        // and send appropriate response to the client
+        // Try to create new record for certificate in the database
         try {
             // Create a new certificate for current logged in user
             $certificate = $user->certificate()->create([
@@ -88,17 +87,16 @@ class CertificateAPIController extends Controller
         }
 
         // Certificate was added successfully!
-        return response()->json([
+        return [
             'success' => true,
-            'error' => null,
             'data' => [
                 'certificate' => [
-                    'id' => $certificate->id,
                     'ref' => $certificate->ref, // Unique certificate ID
                     'image' => url(Storage::url('certificates/' . $filename))
                 ]
-            ]
-        ]);
+            ],
+            'message' => 'Certificate was created successfully!'
+        ];
     }
 
     public function show(Certificate $certificate) {
@@ -116,14 +114,13 @@ class CertificateAPIController extends Controller
         // Respond with the certificate uid and image path
         return [
             'success' => true,
-            'error' => null,
             'data' => [
                 'certificate' => [
-                    'id' => $certificate->id,
                     'ref' => $certificate->ref, // Unique certificate ID
                     'image' => url(Storage::url('certificates/' . $filename))
                 ]
-            ]
+            ],
+            'message' => 'Successfully retrieved certificate!'
         ];
     }
 
@@ -134,6 +131,9 @@ class CertificateAPIController extends Controller
         return [
             'success' => true,
             'data' => [
+                // This method will spit out additional data like timestamps
+                // and primary key but it's okay because this will be sent
+                // to super admin only
                 'certificates' => Certificate::all()
             ],
             'message' => 'Successfully retrieved all certificates!'
@@ -143,15 +143,18 @@ class CertificateAPIController extends Controller
     public function update(Request $request, Certificate $certificate) {
         $status = $request->input('status', null);
 
-        // Only status can be updated
+        // Status must be present with one of two values (`approved` or `rejected`)
         if (! is_string($status) || ! preg_match('/$(approved|rejected)^/'))
             return response()->json([
                 'success' => false,
                 'message' => 'Provided invalid value for "status" field!'
             ], 400);
         
+        // Keep track of original status (will be used for logging errors)
         $old_status = $certificate->status;
+        $filename = $certificate->ref . ".jpg"; // Certificate image
 
+        // Try to update the certificate status
         try {
             $certificate->status = $status;
             $certificate->save();
@@ -164,15 +167,19 @@ class CertificateAPIController extends Controller
             // Log the message to logger
             Log::error("An error occurred while updating certificate!", [
                 'error' => $message,
-                'certificate' => $certificate->id,
-                'old_status' => $old_status,
-                'new_status' => $certificate->status
+                'certificate' => [
+                    'id' => $certificate->id,
+                    'ref' => $certificate->ref,
+                    'status' => $old_status,
+                    'filename' => $filename
+                ],
+                'new_status' => $status
             ]);
 
             // Return error JSON response
             return response()->json([
                 'success' => false,
-                'error' => $message,
+                'message' => "An error occurred while updating certificate!",
             ], 500);
         }
 
@@ -181,19 +188,20 @@ class CertificateAPIController extends Controller
             'success' => true,
             'data' => [
                 'certificate' => [
-                    'id' => $certificate->id,
                     'ref' => $certificate->ref,
                     'image' => url(Storage::url('certificates/' . $filename))
                 ]
             ],
-            'message' => 'The certificate was updated successfully!'
+            'message' => 'Certificate was updated successfully!'
         ];
     }
 
     public function delete(Certificate $certificate) {
+        $filename = $certificate->ref . ".jpg"; // Certificate image
+
         // Try to delete certificate image from storage
         try {
-            Storage::delete('certificates/' . $certificate->ref . ".jpg");
+            Storage::delete('certificates/' . $filename);
         }
         // Return error response and log the event to logger
         catch (Exception $e) {
@@ -203,7 +211,11 @@ class CertificateAPIController extends Controller
             // Log the message to logger
             Log::error("An error occurred while deleting certificate image", [
                 'error' => $message,
-                'id' => $certificate->id
+                'certificate' => [
+                    'id' => $certificate->id,
+                    'ref' => $certificate->ref,
+                    'image' => Storage::url('certificates/' . $filename)
+                ]
             ]);
 
             // Return error JSON response
