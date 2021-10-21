@@ -72,6 +72,13 @@ class CertificateAPIController extends Controller
             $filePath = 'storage/certificates/' . $filename;
             $storePath = 'storage/certificates/thumbnails/' . $filename;
 
+            // Make sure the `certificates/thumbnails` folder exists to prevent
+            // errors caused by saving processed image in directory which does
+            // not exists
+            if (! collect(Storage::directories('certificates'))->contains('certificates/thumbnails'))
+                Storage::makeDirectory('certificates/thumbnails');
+
+
             // Process the image
             $img = Image::make($filePath);
             $img->resize(300, 300);
