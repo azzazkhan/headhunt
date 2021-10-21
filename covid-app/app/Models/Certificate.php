@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Certificate extends Model
 {
     const MAX_UPLOAD_ATTEMPTS = 5;
+    const ALLOWED_FILE_EXT = '/(png|jpg|jpeg|webp|bmp)/i';
 
     /**
      * The table associated with the model.

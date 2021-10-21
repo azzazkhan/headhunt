@@ -54,7 +54,7 @@ class CertificateAPIController extends Controller
         $image = $request->file('certificate'); // Get the uploaded file
         $extension = $image->extension();
 
-        if (! preg_match('/(png|jpg|jpeg|webp|bmp)/i', $extension))
+        if (! preg_match(Certificate::ALLOWED_FILE_EXT, $extension))
             return response()->json([
                 'success' => false,
                 'message' => 'Only image are accepted as certificate document!'
