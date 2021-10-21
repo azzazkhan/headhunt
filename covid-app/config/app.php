@@ -168,6 +168,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        // Custom providers
+        Intervention\Image\ImageServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -238,6 +241,9 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'HTMLFieldGenerator' => InfyOm\Generator\Utils\HTMLFieldGenerator::class,
+
+        // Custom Facades
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 
