@@ -103,7 +103,7 @@ class CertificateAPIController extends Controller
         $user = auth('api')->user();
 
         // Provider can only view his own certificate
-        if ($user->id !== $certificate->user()->id)
+        if ($user->id !== $certificate->user()->first()->id)
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot view someone else\'s certificate!'
