@@ -126,3 +126,10 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('e_provider_payouts', 'API\EProviderPayoutAPIController');
     Route::post('e_service_reviews', 'API\EServiceReviewAPIController@store')->name('e_service_reviews.store');
 });
+
+Route::any('/{any?}', function () {
+    return response()->json([
+        'success' => false,
+        'message' => 'The request URL was not found!'
+    ], 404);
+})->where('any', '.*');
