@@ -21,7 +21,7 @@ class CertificateAPIController extends Controller
         $user = auth('api')->user();
 
         // Check if file was successfully uploaded
-        if (! $request->file('certificate')->isValid())
+        if (! ($request->hasFile('certificate') && !$request->file('certificate')->isValid()))
             return abort(400, 'Invalid or corrupt file provided!');
 
         
