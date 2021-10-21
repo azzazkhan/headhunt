@@ -10,11 +10,11 @@ use App\Models\Certificate;
 // Facades
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Image;
 
 // Utilities
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 // Packages
 // use Intervention\Image\ImageManagerStatic as Image;
