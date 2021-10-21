@@ -73,11 +73,11 @@ class CertificateAPIController extends Controller
             $path = $image->storeAs('certificates', $filename);
 
             // Process the image
-            $img = Image::make($path);
+            $img = Image::make('storage/certificates/' . $filename);
             $image->resize(1000, 1000);
 
             // Save the image to storage and free up memory
-            $img->save($path);
+            $img->save('storage/certificates/' . $filename);
             $img->destroy();
         } catch (Exception $e) {
             $message = $e->getMessage();
