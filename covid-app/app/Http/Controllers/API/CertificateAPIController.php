@@ -53,15 +53,12 @@ class CertificateAPIController extends Controller
         // Try to create new record for certificate in the database, handle error
         // and send appropriate response to the client
         try {
-            // Initialize a new `Certificate` model instance
-            $certificate = new Certificate([
+            // Create a new certificate for current logged in user
+            $certificate = $user->certificate()->create([
                 'ref' => $uuid,
                 'user_id' => $user->id
                 // By default the status will be set to `pending` at database level
             ]);
-
-            // Create a new certificate for current logged in user
-            $user->certificate()->create($certificate);
         } catch (Exception $e) {
             $message = $e->getMessage();
             $message = empty($message) || is_null($message) ? "Unknown error" : $message;
