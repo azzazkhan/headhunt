@@ -69,6 +69,13 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  * Routes accessible by authenticated users only
  */
 Route::middleware('auth')->group(function () {
+    //* Certificate routes
+    Route::resource('certificates', 'CertificateController')
+         ->except([
+             'create', 'store'
+         ])
+         ->names(['destroy' => 'delete']);
+
     // TODO: Laravel app logs (must be accessible by admin only!)
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 

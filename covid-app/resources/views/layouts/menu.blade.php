@@ -21,6 +21,18 @@
 
 <li class="nav-header">{{trans('lang.app_management')}}</li>
 
+@if (user()->hasRole('admin'))
+    <li class="nav-item">
+        <a
+            class="nav-link {{ Request::is('certifiate*') ? 'active' : '' }}"
+            href="{!! route('certificates.index') !!}">
+            @if( $icons )
+                <i class="nav-icon fas fa-file-invoice"></i>
+            @endif
+            <p>Certificates</p>
+        </a>
+    </li>
+@endcan
 
 @can('eProviders.index')
     <li class="nav-item has-treeview {{ (Request::is('eProvider*') || Request::is('requestedEProviders*') || Request::is('galleries*') || Request::is('experiences*') || Request::is('awards*') || Request::is('addresses*') || Request::is('availabilityHours*') ) && !Request::is('eProviderPayouts*') ? 'menu-open' : '' }}">
@@ -270,71 +282,118 @@
 @endcan
 
 @can('app-settings')
+    {{-- Mobile app settings --}}
     <li class="nav-item has-treeview {{ Request::is('settings/mobile*') || Request::is('slides*') || Request::is('customPages*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('settings/mobile*') || Request::is('slides*') || Request::is('customPages*') ? 'active' : '' }}">
             @if($icons)<i class="nav-icon fas fa-mobile-alt"></i>@endif
             <p>
                 {{trans('lang.mobile_menu')}}
                 <i class="right fas fa-angle-left"></i>
-            </p></a>
+            </p>
+        </a>
         <ul class="nav nav-treeview">
+            {{-- Global settings --}}
             <li class="nav-item">
                 <a href="{!! url('settings/mobile/globals') !!}" class="nav-link {{  Request::is('settings/mobile/globals*') ? 'active' : '' }}">
-                    @if($icons)<i class="nav-icon fas fa-cog"></i> @endif <p>{{trans('lang.app_setting_globals')}}
-                    </p>
+                    @if($icons)
+                        <i class="nav-icon fas fa-cog"></i>
+                    @endif
+                    <p>{{trans('lang.app_setting_globals')}}</p>
                 </a>
             </li>
-
+            {{-- Theme --}}
             <li class="nav-item">
                 <a href="{!! url('settings/mobile/colors') !!}" class="nav-link {{  Request::is('settings/mobile/colors*') ? 'active' : '' }}">
-                    @if($icons)<i class="nav-icon fas fa-magic"></i> @endif <p>{{trans('lang.mobile_colors')}}
-                    </p>
+                    @if($icons)
+                        <i class="nav-icon fas fa-magic"></i>
+                    @endif
+                    <p>{{trans('lang.mobile_colors')}}</p>
                 </a>
             </li>
-
+            {{-- Custom Pages --}}
             @can('customPages.index')
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('customPages*') ? 'active' : '' }}" href="{!! route('customPages.index') !!}">@if($icons)
-                            <i class="nav-icon fa fa-file"></i>@endif<p>{{trans('lang.custom_page_plural')}}</p></a>
+                    <a class="nav-link {{ Request::is('customPages*') ? 'active' : '' }}" href="{!! route('customPages.index') !!}">
+                        @if($icons)
+                            <i class="nav-icon fa fa-file"></i>
+                        @endif
+                        <p>{{trans('lang.custom_page_plural')}}</p>
+                    </a>
                 </li>
             @endcan
-
+            {{-- Slides --}}
             @can('slides.index')
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('slides*') ? 'active' : '' }}" href="{!! route('slides.index') !!}">@if($icons)
-                            <i class="nav-icon fas fa-images"></i>@endif<p>{{trans('lang.slide_plural')}} </p>
+                    <a class="nav-link {{ Request::is('slides*') ? 'active' : '' }}" href="{!! route('slides.index') !!}">
+                        @if($icons)
+                            <i class="nav-icon fas fa-images"></i>
+                        @endif
+                        <p>{{trans('lang.slide_plural')}}</p>
                     </a>
                 </li>
             @endcan
         </ul>
-
     </li>
-    <li class="nav-item has-treeview {{
-    (Request::is('settings*') ||
-     Request::is('users*')) && !Request::is('settings/mobile*')
-        ? 'menu-open' : '' }}">
-        <a href="#" class="nav-link {{
-        (Request::is('settings*') ||
-         Request::is('users*')) && !Request::is('settings/mobile*')
-          ? 'active' : '' }}"> @if($icons)<i class="nav-icon fas fa-cogs"></i>@endif
-            <p>{{trans('lang.app_setting')}} <i class="right fas fa-angle-left"></i>
+    {{-- Web app settings --}}
+    <li
+        class="
+            nav-item
+            has-treeview
+            {{
+                (
+                    Request::is('settings*') ||
+                    Request::is('users*')) &&
+                    !Request::is('settings/mobile*'
+                ) ? 'menu-open' : ''
+            }}
+        ">
+        {{-- Global settings --}}
+        <a
+            href="#"
+            class="
+                nav-link
+                {{
+                    (
+                        Request::is('settings*') ||
+                        Request::is('users*')) &&
+                        !Request::is('settings/mobile*'
+                    ) ? 'active' : ''
+                }}
+            ">
+            @if($icons)
+                <i class="nav-icon fas fa-cogs"></i>
+            @endif
+            <p>
+                {{trans('lang.app_setting')}}
+                <i class="right fas fa-angle-left"></i>
             </p>
         </a>
         <ul class="nav nav-treeview">
+            {{-- Global settings --}}
             <li class="nav-item">
-                <a href="{!! url('settings/app/globals') !!}" class="nav-link {{  Request::is('settings/app/globals*') ? 'active' : '' }}">
-                    @if($icons)<i class="nav-icon fas fa-cog"></i> @endif <p>{{trans('lang.app_setting_globals')}}</p>
+                <a
+                    href="{!! url('settings/app/globals') !!}"
+                    class="nav-link {{  Request::is('settings/app/globals*') ? 'active' : '' }}">
+                    @if($icons)
+                        <i class="nav-icon fas fa-cog"></i>
+                    @endif
+                    <p>{{trans('lang.app_setting_globals')}}</p>
                 </a>
             </li>
-
+            {{-- Users --}}
             @can('users.index')
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}" href="{!! route('users.index') !!}">@if($icons)
-                            <i class="nav-icon fas fa-users"></i>@endif
-                        <p>{{trans('lang.user_plural')}}</p></a>
+                    <a
+                        class="nav-link {{ Request::is('users*') ? 'active' : '' }}"
+                        href="{!! route('users.index') !!}">
+                        @if($icons)
+                            <i class="nav-icon fas fa-users"></i>
+                        @endif
+                        <p>{{trans('lang.user_plural')}}</p>
+                    </a>
                 </li>
             @endcan
-
+            {{-- Roles --}}
             <li class="nav-item has-treeview {{ Request::is('settings/permissions*') || Request::is('settings/roles*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ Request::is('settings/permissions*') || Request::is('settings/roles*') ? 'active' : '' }}">
                     @if($icons)<i class="nav-icon fas fa-user-secret"></i>@endif

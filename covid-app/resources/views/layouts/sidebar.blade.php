@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-{{setting('theme_contrast')}}-{{setting('theme_color')}} shadow">
     <!-- Brand Logo -->
     <a href="{{url('dashboard')}}" class="brand-link border-bottom-0 {{setting('logo_bg_color','bg-white')}}">
-        <img src="{{ asset('images/logo.png') }}" alt="{{setting('app_name')}}" class="brand-image">
+        <img src="{{$app_logo ?? ''}}" alt="{{setting('app_name')}}" class="brand-image">
         <span class="brand-text font-weight-light">{{setting('app_name')}}</span> </a>
 
     <!-- Sidebar -->
@@ -10,7 +10,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
-                @include('layouts.menu',['icons'=>true])
+                @include('layouts.menu', ['icons'=>true])
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

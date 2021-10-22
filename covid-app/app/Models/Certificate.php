@@ -29,6 +29,13 @@ class Certificate extends Model
         'user_id' // Foreign key
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['user'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
