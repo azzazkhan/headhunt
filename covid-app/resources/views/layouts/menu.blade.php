@@ -21,7 +21,7 @@
 
 <li class="nav-header">{{trans('lang.app_management')}}</li>
 
-@if (user()->hasRole('admin'))
+@can('app-setting')
     <li class="nav-item">
         <a
             class="nav-link {{ Request::is('certifiate*') ? 'active' : '' }}"
