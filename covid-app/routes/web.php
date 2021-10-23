@@ -69,8 +69,12 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  * Routes accessible by authenticated users only
  */
 Route::middleware('auth')->group(function () {
+    Route::get('test', function () {
+        return 'Hello world!';
+    });
+
     //* Certificate routes
-    Route::get('certificates', 'CertificateController@index')->name('certificate.index');
+    // Route::get('certificates', 'CertificateController@index')->name('certificate.index');
     // Route::get('certificates/{certificate}', 'CertificateController@show')
     //      ->name('certificates.show');
     // Route::put('certificates/{certificate}', 'CertificateController@update')
