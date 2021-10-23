@@ -25,7 +25,7 @@
     <li class="nav-item">
         <a
             class="nav-link {{ Request::is('certifiate*') ? 'active' : '' }}"
-            href="{!! route('certificates.index') !!}">
+            href="{!! url('certificates') !!}">
             @if( $icons )
                 <i class="nav-icon fas fa-file-invoice"></i>
             @endif
