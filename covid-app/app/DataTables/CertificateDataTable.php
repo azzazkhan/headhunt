@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\EloquentDataTable;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class CertificateDataTable extends DataTable
 {
@@ -19,12 +21,26 @@ class CertificateDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        return datatables()
-            ->eloquent($query)
-            ->editColumn('image', function (Certificate $certificate) {
-                return getMediaColumn('image', url(Storage::url('certificates/' . $certificate->ref . '.jpg')));
+        $dataTable = new EloquentDataTable($query);
+        $columns = array_column($this->getColumns(), 'data');
+        $dataTable = $dataTable
+            ->editColumn('image', function ($category) {
+                return '<img class="rounded" style="height: 50px;" src="' . url(Storage::url('certificates/' . $certificate->ref . '.jpg')) . '" alt="Certificate for ' . $category->user->name .'">';
             })
-            ->addColumn('action', 'certificates.action');
+            ->editColumn('status', function ($category) {
+                return $category->status;
+            })
+            ->editColumn('user', function ($category) {
+                return $category->user->name;
+            })
+            ->editColumn('created_at', function ($category) {
+                return $category->created_at;
+            })
+            ->addColumn('action', 'certificates.datatables_actions')
+            ->rawColumns(array_merge($columns, ['action']));
+
+
+        return $dataTable;
     }
 
     /**
@@ -35,7 +51,7 @@ class CertificateDataTable extends DataTable
      */
     public function query(Certificate $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->select('certificates.*');
     }
 
     /**
@@ -46,18 +62,30 @@ class CertificateDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('certificates-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
+                    ->addAction(['width' => '80px', 'printable' => false, 'responsivePriority' => '100'])
+                    ->setTableId('certificates-table')
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->orderBy(1);
+                    // ->buttons(
+                    //     Button::make('create'),
+                    //     Button::make('export'),
+                    //     Button::make('print'),
+                    //     Button::make('reset'),
+                    //     Button::make('reload')
+                    // );
+    }
+
+    /**
+     * Export PDF using DomPDF
+     * @return mixed
+     */
+    public function pdf()
+    {
+        $data = $this->getDataForPrint();
+        $pdf = PDF::loadView($this->printPreview, compact('data'));
+        return $pdf->download($this->filename() . '.pdf');
     }
 
     /**
@@ -67,23 +95,47 @@ class CertificateDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('image')
-                  ->exportable(false)
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)
-                  ->orderable(false),
-            Column::make('ref'),
-            Column::make('status'),
-            Column::make('created_at'),
+        $columns = [
+            [
+                'data' => 'image',
+                'title' => 'Thumbnail',
+                'searchable' => false,
+                'orderable' => false,
+                'exportable' => false,
+            ],
+            [
+                'data' => 'status',
+                'title' => 'Status',
+            ],
+            [
+                'data' => 'user',
+                'title' => 'Provider Name',
+            ],
+            [
+                'data' => 'created_at',
+                'title' => 'Submitted At',
+            ]
         ];
+
+        return $columns;
+
+        // return [
+        //     Column::computed('action')
+        //           ->exportable(false)
+        //           ->printable(false)
+        //           ->width(60)
+        //           ->addClass('text-center'),
+        //     Column::make('id'),
+        //     Column::make('image')
+        //           ->exportable(false)
+        //           ->width(60)
+        //           ->addClass('text-center')
+        //           ->searchable(false)
+        //           ->orderable(false),
+        //     Column::make('ref'),
+        //     Column::make('status'),
+        //     Column::make('created_at'),
+        // ];
     }
 
     /**
