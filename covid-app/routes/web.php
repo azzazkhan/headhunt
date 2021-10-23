@@ -70,7 +70,7 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  */
 Route::middleware('auth')->group(function () {
     //* Certificate routes
-    Route::view('certificates', 'certificates.index');
+    Route::get('certificates', 'CertificateController@index')->name('certificate.index');
     // Route::get('certificates/{certificate}', 'CertificateController@show')
     //      ->name('certificates.show');
     // Route::put('certificates/{certificate}', 'CertificateController@update')
@@ -78,11 +78,11 @@ Route::middleware('auth')->group(function () {
     // Route::delete('certificates/{certificate}', 'CertificateController@delete')
     //      ->name('certificates.delete');
 
-    Route::resource('certificates', 'CertificateController')
-         ->except([
-             'create', 'store'
-         ])
-         ->names(['destroy' => 'delete']);
+    // Route::resource('certificates', 'CertificateController')
+    //      ->except([
+    //          'create', 'store'
+    //      ])
+    //      ->names(['destroy' => 'delete']);
          
 
     // TODO: Laravel app logs (must be accessible by admin only!)
