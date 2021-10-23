@@ -6,7 +6,7 @@
  * Copyright (c) 2021
  */
 
-use App\DataTables\CertificateDataTable;
+use App\Models\Certificate;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,9 +71,11 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  * Routes accessible by authenticated users only
  */
 Route::middleware('auth')->group(function () {
-    Route::get('test', function (CertificateDataTable $dataTable) {
-        // return $dataTable->render('certificates.index');
-        return 'Hello world';
+    Route::get('certificates', function () {
+        
+        return view('certificates.index', [
+            'certificates' => Certificate::all()
+        ]);
     })->name('certificates.index');
 
     //* Certificate routes
