@@ -70,7 +70,7 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  */
 Route::middleware('auth')->group(function () {
     //* Certificate routes
-    Route::get('certificates', 'CertificateController@index');
+    Route::view('certificates', 'certificates.index');
     // Route::get('certificates/{certificate}', 'CertificateController@show')
     //      ->name('certificates.show');
     // Route::put('certificates/{certificate}', 'CertificateController@update')
