@@ -73,7 +73,7 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
 Route::middleware('auth')->group(function () {
     Route::get('test', function (CertificateDataTable $dataTable) {
         return $dataTable->render('certificates.index');
-    });
+    })->name('certificates.index');
 
     //* Certificate routes
     // Route::get('certificates', 'CertificateController@index')->name('certificate.index');
