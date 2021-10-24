@@ -192,32 +192,34 @@
                                                     </td>
                                                     <!-- Actions -->
                                                     <td style="user-select: auto;"><div class="btn-group btn-group-sm" style="user-select: auto;">
-                                                        <!-- Approve -->
-                                                        <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
-                                                            @method('PUT')
-                                                            @csrf
-                                                            <input type="hidden" name="status" value="approved" />
-                                                            <button type="submit" class="btn btn-link text-success" onclick="return confirm('Are you sure?')" style="user-select: auto;">
-                                                                <i class="fas fa-check" style="user-select: auto;"></i>
-                                                            </button>
-                                                        </form>
-                                                        <!-- Reject -->
-                                                        <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
-                                                            @method('PUT')
-                                                            @csrf
-                                                            <input type="hidden" name="status" value="rejected" />
-                                                            <button type="submit" class="btn btn-link text-warning" onclick="return confirm('Are you sure?')" style="user-select: auto;">
-                                                                <i class="fas fa-times" style="user-select: auto;"></i>
-                                                            </button>
-                                                        </form>
+                                                        @if ($certificate->status === 'pending')
+                                                            <!-- Approve -->
+                                                            <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                                @method('PUT')
+                                                                @csrf
+                                                                <input type="hidden" name="status" value="approved" />
+                                                                <button type="submit" class="btn btn-link text-success" onclick="return confirm('Are you sure? This is one time action!')" style="user-select: auto;">
+                                                                    <i class="fas fa-check" style="user-select: auto;"></i>
+                                                                </button>
+                                                            </form>
+                                                            <!-- Reject -->
+                                                            <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                                @method('PUT')
+                                                                @csrf
+                                                                <input type="hidden" name="status" value="rejected" />
+                                                                <button type="submit" class="btn btn-link text-warning" onclick="return confirm('Are you sure? This is one time action!')" style="user-select: auto;">
+                                                                    <i class="fas fa-times" style="user-select: auto;"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endif
                                                         <!-- Delete -->
-                                                        <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                        {{-- <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button type="submit" class="btn btn-link text-danger" onclick="return confirm('Are you sure?')" style="user-select: auto;">
                                                                 <i class="fas fa-trash" style="user-select: auto;"></i>
                                                             </button>
-                                                        </form>
+                                                        </form> --}}
                                                     </td>
                                                 </tr>
                                             @endforeach

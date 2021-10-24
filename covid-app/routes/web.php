@@ -91,7 +91,7 @@ Route::middleware('auth')->group(function () {
         $certificate->status = $request->input('status');
         $certificate->save();
 
-        redirect('/certificates');
+        return redirect('/certificates');
     });
 
     // Route::get('certificates', 'CertificateController@index')->name('certificate.index');
