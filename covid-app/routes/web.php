@@ -6,7 +6,7 @@
  * Copyright (c) 2021
  */
 
-use App\Models\Certificate;
+// use App\Models\Certificate;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  * Routes accessible by authenticated users only
  */
 Route::middleware('auth')->group(function () {
-    Route::get('certificates', function () {
+    Route::get('test', function () {
         return 'Show all certificates';
         // return view('certificates.index', [
         //     'certificates' => Certificate::all()
