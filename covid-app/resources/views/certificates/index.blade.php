@@ -148,7 +148,6 @@
                                                 <tr class="{{ $loop->even ? 'even' : 'odd' }}" style="height: 74px; user-select: auto;">
                                                     <!-- Image -->
                                                     <td class="sorting_1" style="user-select: auto;">
-                                                        <a href="{{ route('users.edit', $certificate->user) }}"></a>
                                                         <img
                                                             class="rounded"
                                                             src="{!!
@@ -162,7 +161,11 @@
                                                         />
                                                     </td>
                                                     <!-- Provider Name -->
-                                                    <td style="user-select: auto;">{{ $certificate->user->name }}</td>
+                                                    <td style="user-select: auto;">
+                                                        <a href="{{ route('users.edit', $certificate->user) }}">
+                                                            {{ $certificate->user->name }}
+                                                        </a>
+                                                    </td>
                                                     <!-- Status -->
                                                     <td style="user-select: auto;">
                                                         @php
