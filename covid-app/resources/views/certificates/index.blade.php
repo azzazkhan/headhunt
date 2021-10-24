@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- @push('css_lib')
+    @push('css_lib')
         @include('layouts.datatables_css')
-    @endpush --}}
+    @endpush
     <!-- Content Header -->
     <div class="content-headaer">
         <div class="container-fluid">
