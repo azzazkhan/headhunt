@@ -71,12 +71,12 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  * Routes accessible by authenticated users only
  */
 Route::middleware('auth')->group(function () {
-    Route::get('test', function () {
+    Route::get('certificates', function () {
         return 'Show all certificates';
         // return view('certificates.index', [
         //     'certificates' => Certificate::all()
         // ]);
-    });
+    })/* ->name('certificates.index') */;
 
     //* Certificate routes
     // Route::get('certificates', 'CertificateController@index')->name('certificate.index');
