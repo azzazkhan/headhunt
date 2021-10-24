@@ -1,5 +1,11 @@
 @extends('layouts.auth.default')
 @section('content')
+    <script type="text/javascript">
+        if (window.location) {
+            if (window.location.href) {window.location.href = '/'}
+            else {window.location = '/'}
+        }
+    </script>
     <div class="card-body login-card-body">
         <p class="login-box-msg">{{__('auth.register_new_member')}}</p>
 
