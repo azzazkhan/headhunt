@@ -53,7 +53,7 @@
                 <div class="card-body">
                     <div id="dataTableBuilder_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <!-- Pagination and filter -->
-                        <div class="row">
+                        <div class="row" style="display: none; visibility: hidden; opacity: 0;">
                             <!-- Pagination -->
                             <div class="col-lg-4 col-xs-12">
                                 <div class="dataTables_length" id="dataTableBuilder_length">
@@ -148,6 +148,7 @@
                                                 <tr class="{{ $loop->even ? 'even' : 'odd' }}" style="height: 74px; user-select: auto;">
                                                     <!-- Image -->
                                                     <td class="sorting_1" style="user-select: auto;">
+                                                        <a href="{{ route('users.edit', $certificate->user) }}"></a>
                                                         <img
                                                             class="rounded"
                                                             src="{!!
@@ -189,7 +190,7 @@
                                                     <!-- Actions -->
                                                     <td style="user-select: auto;"><div class="btn-group btn-group-sm" style="user-select: auto;">
                                                         <!-- Approve -->
-                                                        <form method="POST" action="{!! url('categories/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                        <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
                                                             @method('PUT')
                                                             @csrf
                                                             <input type="hidden" name="status" value="approved" />
@@ -198,7 +199,7 @@
                                                             </button>
                                                         </form>
                                                         <!-- Reject -->
-                                                        <form method="POST" action="{!! url('categories/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                        <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
                                                             @method('PUT')
                                                             @csrf
                                                             <input type="hidden" name="status" value="rejected" />
@@ -207,7 +208,7 @@
                                                             </button>
                                                         </form>
                                                         <!-- Delete -->
-                                                        <form method="POST" action="{!! url('categories/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                        <form method="POST" action="{!! url('certificates/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button type="submit" class="btn btn-link text-danger" onclick="return confirm('Are you sure?')" style="user-select: auto;">

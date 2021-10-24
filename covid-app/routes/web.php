@@ -96,6 +96,18 @@ Route::middleware('auth')->group(function () {
         redirect('/certificates');
     });
 
+    Route::patch('certificates/{certificate}', function (Request $request, Certificate $certificate) {
+        return 'update route';
+
+        $validate = $request->validate([
+            'status' => ['required', 'regex:/^(approved|rejected)$/']
+        ]);
+        $certificate->status = $request->input('status');
+        $certificate->save();
+
+        redirect('/certificates');
+    });
+
     // Route::get('certificates', 'CertificateController@index')->name('certificate.index');
     // Route::get('certificates/{certificate}', 'CertificateController@show')
     //      ->name('certificates.show');
