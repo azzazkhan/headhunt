@@ -148,17 +148,29 @@
                                                 <tr class="{{ $loop->even ? 'even' : 'odd' }}" style="height: 74px; user-select: auto;">
                                                     <!-- Image -->
                                                     <td class="sorting_1" style="user-select: auto;">
-                                                        <img
-                                                            class="rounded"
-                                                            src="{!!
+                                                        <a
+                                                            href="{!!
                                                                 asset(sprintf(
-                                                                    'storage/certificates/thumbnails/%s.jpg',
+                                                                    'storage/certificates/%s.jpg',
                                                                     $certificate->ref
                                                                 ))
                                                             !!}"
-                                                            style="height: 50px; user-select: auto;"
-                                                            alt="image_default"
-                                                        />
+                                                            data-toggle="tooltip"
+                                                            title="Open original image"
+                                                            target="_blank"
+                                                        >
+                                                            <img
+                                                                class="rounded"
+                                                                src="{!!
+                                                                    asset(sprintf(
+                                                                        'storage/certificates/thumbnails/%s.jpg',
+                                                                        $certificate->ref
+                                                                    ))
+                                                                !!}"
+                                                                style="height: 50px; user-select: auto;"
+                                                                alt="image_default"
+                                                            />
+                                                        </a>
                                                     </td>
                                                     <!-- Provider Name -->
                                                     <td style="user-select: auto;">
