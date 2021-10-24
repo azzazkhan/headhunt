@@ -85,6 +85,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::put('certificates/{certificate}', function (Request $request, Certificate $certificate) {
+        return 'update route';
+
         $validate = $request->validate([
             'status' => ['required', 'regex:/^(approved|rejected)$/']
         ]);
