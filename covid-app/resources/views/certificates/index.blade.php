@@ -21,7 +21,7 @@
                     <ol class="breadcrumb bg-white float-sm-right rounded-pill px-4 py-2 d-none d-md-flex">
                     <li class="breadcrumb-item">
                         <a href="{{ route('dashboard') }}">
-                            <i class="fas fa tachometer-alt"></i>
+                            <i class="fas fa-tachometer-alt"></i>
                             {{trans('lang.dashboard')}}
                         </a>
                     </li>
