@@ -23,6 +23,8 @@ use Illuminate\Http\Request;
 // Login routes
 Route::get('login/{service}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/register', function () { return redirect('/'); });
+Route::post('/register', function () { return redirect('/'); });
 Auth::routes();
 
 /**
