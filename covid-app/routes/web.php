@@ -7,6 +7,7 @@
  */
 
 use App\Models\Certificate;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,14 +72,28 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  * Routes accessible by authenticated users only
  */
 Route::middleware('auth')->group(function () {
+    /**
+     * Custom covid certificate routes.
+     * 
+     * Logic is directly embedded in router file which is a bad practice but
+     * using a controller gives unknown permission issue.
+     */
     Route::get('certificates', function () {
-        // return 'Show all certificates';
         return view('certificates.index', [
             'certificates' => Certificate::all()
         ]);
-    })/* ->name('certificates.index') */;
+    });
 
-    //* Certificate routes
+    Route::put('certificates/{certificate}', function (Request $request, Certificate $certificate) {
+        $validate = $request->validate([
+            'status' => ['required', 'regex:/^(approved|rejected)$/']
+        ]);
+        $certificate->status = $request->input('status');
+        $certificate->save();
+
+        redirect('/certificates');
+    });
+
     // Route::get('certificates', 'CertificateController@index')->name('certificate.index');
     // Route::get('certificates/{certificate}', 'CertificateController@show')
     //      ->name('certificates.show');
