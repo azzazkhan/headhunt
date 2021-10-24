@@ -78,13 +78,15 @@ Route::middleware('auth')->group(function () {
      * Logic is directly embedded in router file which is a bad practice but
      * using a controller gives unknown permission issue.
      */
-    Route::get('certificates', function () {
+    Route::get('certificates', function (Request $request) {
+        if (! $request->user()->hasRole('admin')) abort(403);
         return view('certificates.index', [
             'certificates' => Certificate::all()
         ]);
     });
 
     Route::put('certificates/{certificate:ref}', function (Request $request, Certificate $certificate) {
+        if (! $request->user()->hasRole('admin')) abort(403);
         $validate = $request->validate([
             'status' => ['required', 'regex:/^(approved|rejected)$/']
         ]);
@@ -94,7 +96,9 @@ Route::middleware('auth')->group(function () {
         return redirect('/certificates');
     });
 
-    Route::delete('certificates/{certificate:ref}', function (Certificate $certificate) {
+    Route::delete('certificates/{certificate:ref}', function (Request $request, Certificate $certificate) {
+        if (! $request->user()->hasRole('admin')) abort(403);
+
         $certificate->delete();
 
         return redirect('/certificates');
