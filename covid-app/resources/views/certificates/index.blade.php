@@ -207,8 +207,8 @@
                                                                 @method('PUT')
                                                                 @csrf
                                                                 <input type="hidden" name="status" value="rejected" />
-                                                                <button type="submit" class="btn btn-link text-warning" onclick="return confirm('Are you sure? This is one time action!')" style="user-select: auto;">
-                                                                    <i class="fas fa-times" style="user-select: auto;"></i>
+                                                                <button type="submit" class="btn btn-link text-danger" onclick="return confirm('Are you sure? This is one time action!')" style="user-select: auto;">
+                                                                    <i class="fas fa-ban" style="user-select: auto;"></i>
                                                                 </button>
                                                             </form>
                                                         @endif
