@@ -165,7 +165,7 @@
                                                     <!-- Status -->
                                                     <td style="user-select: auto;">
                                                         @php
-                                                            $badgeColor = "primary";
+                                                            $badgeColor = "secondary";
                                                             if ($certificate->status === "approved")
                                                                 $badgeColor = "success";
                                                             else if ($certificate->status === "rejected")
