@@ -39,16 +39,16 @@
             @include('flash::message')
             <div class="card shadow-sm">
                 <div class="card-header">
-                    <nav class="nav nav-tabs d-flex flex-md-row flex-column-reverse align-items-start card-header-tabs">
-                        <ul class="d-flex flex-row">
+                    <ul class="nav nav-tabs d-flex flex-md-row flex-column-reverse align-items-start card-header-tabs">
+                        <div class="d-flex flex-row">
                             <li class="nav-item">
                                 <a href="{!! url()->current() !!}" class="nav-link active">
                                     <i class="fa fa-list mr-2"></i> Certificates List
                                 </a>
                             </li>
-                        </ul>
+                        </div>
                         {{-- @include('layouts.right_toolbar', compact('dataTable')) --}}
-                    </nav>
+                    </ul>
                 </div>
                 <div class="card-body">
                     <div id="dataTableBuilder_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
