@@ -5,7 +5,7 @@
         @include('layouts.datatables_css')
     @endpush
     <!-- Content Header -->
-    <div class="content-headear">
+    <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <!-- Page title -->
