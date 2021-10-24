@@ -33,166 +33,165 @@
                 </div>
             </div>
         </div>
-
-        <div class="content">
-            <div class="cleaarfix">
-                @include('flash::message')
-                <div class="card shadow-sm">
-                    <div class="card-header">
-                        <nav class="nav nav-tabs d-flex flex-md-row flex-column-reverse align-items-start card-header-tabs">
-                            <ul class="d-flex flex-row">
-                                <li class="nav-item">
-                                    <a href="{!! url()->current() !!}" class="nav-link active">
-                                        <i class="fa fa-list mr-2"></i> Certificates List
-                                    </a>
-                                </li>
-                            </ul>
-                            {{-- @include('layouts.right_toolbar', compact('dataTable')) --}}
-                        </nav>
-                    </div>
-                    <div class="card-body">
-                        <div id="dataTableBuilder_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                            <!-- Pagination and filter -->
-                            <div class="row">
-                                <!-- Pagination -->
-                                <div class="col-lg-4 col-xs-12">
-                                    <div class="dataTables_length" id="dataTableBuilder_length">
-                                        <label for="dataTable_itemsPerPage">
-                                            Show
-                                            <select name="dataTableBuilder_length" aria-controls="dataTableBuilder" id="dataTable_itemsPerPage" class="custom-select custom-select-sm form-control form-control-sm">
-                                                <option value="10">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>
-                                            entries
-                                        </label>
-                                    </div>
+    </div>
+    <div class="content">
+        <div class="cleaarfix">
+            @include('flash::message')
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <nav class="nav nav-tabs d-flex flex-md-row flex-column-reverse align-items-start card-header-tabs">
+                        <ul class="d-flex flex-row">
+                            <li class="nav-item">
+                                <a href="{!! url()->current() !!}" class="nav-link active">
+                                    <i class="fa fa-list mr-2"></i> Certificates List
+                                </a>
+                            </li>
+                        </ul>
+                        {{-- @include('layouts.right_toolbar', compact('dataTable')) --}}
+                    </nav>
+                </div>
+                <div class="card-body">
+                    <div id="dataTableBuilder_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <!-- Pagination and filter -->
+                        <div class="row">
+                            <!-- Pagination -->
+                            <div class="col-lg-4 col-xs-12">
+                                <div class="dataTables_length" id="dataTableBuilder_length">
+                                    <label for="dataTable_itemsPerPage">
+                                        Show
+                                        <select name="dataTableBuilder_length" aria-controls="dataTableBuilder" id="dataTable_itemsPerPage" class="custom-select custom-select-sm form-control form-control-sm">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        entries
+                                    </label>
                                 </div>
-                                <!-- Filter -->
-                                <div class="ml-auto">
-                                    <div id="dataTableBuilder_filter" class="dataTables_filter">
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" name="dataTableBuilder_search" id="dataTableBuilder_search" class="form-control" aria-label="Search" placeholder="Search" />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-search" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
+                            </div>
+                            <!-- Filter -->
+                            <div class="ml-auto">
+                                <div id="dataTableBuilder_filter" class="dataTables_filter">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="dataTableBuilder_search" id="dataTableBuilder_search" class="form-control" aria-label="Search" placeholder="Search" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-search" aria-hidden="true"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Content wrapper -->
-                            <div class="DTFC_ScrollWrapper" style="position: relative; clear: both; height: 731px; user-select: auto;">
-                                <!-- Hidden content -->
-                                <div class="DTFC_LeftWrapper" style="position: absolute; top: 0px; left: 0px; user-select: auto;" aria-hidden="true">
-                                    <div class="DTFC_LeftHeadWrapper" style="position: relative; top: 0px; left: 0px; overflow: hidden; user-select: auto;"></div>
-                                    <div class="DTFC_LeftBodyWrapper" style="position: relative; top: 0px; left: 0px; height: 0px; overflow: hidden; user-select: auto;">
-                                        <div class="DTFC_LeftBodyLiner" style="position: relative; top: 0px; left: 0px; overflow-y: scroll; user-select: auto;"></div>
-                                    </div>
-                                    <div class="DTFC_LeftFootWrapper" style="position: relative; top: 0px; left: 0px; overflow: hidden; user-select: auto;"></div>
+                        </div>
+                        <!-- Content wrapper -->
+                        <div class="DTFC_ScrollWrapper" style="position: relative; clear: both; height: 731px; user-select: auto;">
+                            <!-- Hidden content -->
+                            <div class="DTFC_LeftWrapper" style="position: absolute; top: 0px; left: 0px; user-select: auto;" aria-hidden="true">
+                                <div class="DTFC_LeftHeadWrapper" style="position: relative; top: 0px; left: 0px; overflow: hidden; user-select: auto;"></div>
+                                <div class="DTFC_LeftBodyWrapper" style="position: relative; top: 0px; left: 0px; height: 0px; overflow: hidden; user-select: auto;">
+                                    <div class="DTFC_LeftBodyLiner" style="position: relative; top: 0px; left: 0px; overflow-y: scroll; user-select: auto;"></div>
                                 </div>
-                                <!-- Content Table -->
-                                <div class="dataTables_scroll" style="user-select: none;">
-                                    <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%; user-select: auto;">
-                                        <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 1181.2px; padding-right: 0px; user-select: auto;">
-                                            <table class="table dataTable no-footer" width="100%" role="grid" style="margin-left: 0px; width: 1181.2px; user-select: auto;">
-                                                <!-- Header Row -->
-                                                <thead style="user-select: auto;">
-                                                    <tr role="row" style="height: 51px; user-select: auto;">
-                                                        <th title="Image" class="sorting_desc" rowspan="1" colspan="1" data-column-index="0" style="width: 52.975px; user-select: auto;" aria-label="Image">Image</th>
-                                                        <th title="Provider Name" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">Provider Name</th>
-                                                        <th title="Status" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 55.4px; user-select: auto;" aria-label="Status: activate to sort column ascending">Status</th>
-                                                        <th title="Submitted On" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">Submitted On</th>
-                                                        <th title="Action" width="80px" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="8" style="width: 79.4px; user-select: auto;" aria-label="Action">Action</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%; user-select: auto;">
-                                        <table class="table dataTable no-footer" id="dataTableBuilder" width="100%" role="grid" aria-describedby="dataTableBuilder_info" style="width: 100%; user-select: auto;">
+                                <div class="DTFC_LeftFootWrapper" style="position: relative; top: 0px; left: 0px; overflow: hidden; user-select: auto;"></div>
+                            </div>
+                            <!-- Content Table -->
+                            <div class="dataTables_scroll" style="user-select: none;">
+                                <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%; user-select: auto;">
+                                    <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 1181.2px; padding-right: 0px; user-select: auto;">
+                                        <table class="table dataTable no-footer" width="100%" role="grid" style="margin-left: 0px; width: 1181.2px; user-select: auto;">
+                                            <!-- Header Row -->
                                             <thead style="user-select: auto;">
-                                                <tr role="row" style="height: 0px; user-select: auto;">
-                                                    <th title="Image" class="sorting_desc" rowspan="1" colspan="1" data-column-index="0" style="width: 52.975px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Image">
-                                                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Image</div>
-                                                    </th>
-                                                    <th title="Provider Name" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">
-                                                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Provider Name</div>
-                                                    </th>
-                                                    <th title="Status" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="2" style="width: 55.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Status: activate to sort column ascending">
-                                                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Status</div>
-                                                    </th>
-                                                    <th title="Submitted On" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">
-                                                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Submitted On</div>
-                                                    </th>
-                                                    <th title="Action" width="80px" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="8" style="width: 79.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Action">
-                                                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Action</div>
-                                                    </th>
+                                                <tr role="row" style="height: 51px; user-select: auto;">
+                                                    <th title="Image" class="sorting_desc" rowspan="1" colspan="1" data-column-index="0" style="width: 52.975px; user-select: auto;" aria-label="Image">Image</th>
+                                                    <th title="Provider Name" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">Provider Name</th>
+                                                    <th title="Status" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 55.4px; user-select: auto;" aria-label="Status: activate to sort column ascending">Status</th>
+                                                    <th title="Submitted On" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">Submitted On</th>
+                                                    <th title="Action" width="80px" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="8" style="width: 79.4px; user-select: auto;" aria-label="Action">Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody style="user-select: auto;">
-                                                {{-- @foreach ($certificates as $certificate)
-                                                    <tr class="{{ $loop->even ? 'even' : 'odd' }}" style="height: 74px; user-select: auto;">
-                                                        <td class="sorting_1" style="user-select: auto;">
-                                                            <img
-                                                                class="rounded"
-                                                                src="{!!
-                                                                    asset(sprintf(
-                                                                        'storage/certificates/thumbnails/%s.jpg',
-                                                                        $certificate->ref
-                                                                    ))
-                                                                !!}"
-                                                                style="height: 50px; user-select: auto;"
-                                                                alt="image_default"
-                                                            />
-                                                        </td>
-                                                        <td style="user-select: auto;">{{ $certificate->user->name }}</td>
-                                                        <td style="user-select: auto;">
-                                                            @php
-                                                                $badgeColor = "primary";
-                                                                if ($certificate->status === "approved")
-                                                                    $badgeColor = "success";
-                                                                else if ($certificate->status === "rejected")
-                                                                    $badgeColor = "danger";
-                                                            @endphp
-                                                            <span class="badge badge-{{ $badgeColor }} p-2" style="user-select: auto;">
-                                                                {{ ucfirst($certificate->status) }}
-                                                            </span>
-                                                        </td>
-                                                        <td style="user-select: auto;">
-                                                            <span data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ $certificate->created_at->format('D jS M y (h:i:s A)') }}" style="user-select: auto;">
-                                                                {{ $certificate->created_at->diffForHumans() }}
-                                                            </span>
-                                                        </td>
-                                                        <td style="user-select: auto;"><div class="btn-group btn-group-sm" style="user-select: auto;">
-                                                            <a data-toggle="tooltip" data-placement="left" title="" href="http://34.93.175.233/categories/1/edit" class="btn btn-link" data-original-title="Edit Certificate" style="user-select: auto;">
-                                                                <i class="fas fa-edit" style="user-select: auto;"></i>
-                                                            </a>
-                                                            <form method="POST" action="{!! url('categories/' . $category->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <button type="submit" class="btn btn-link text-danger" onclick="return confirm('Are you sure?')" style="user-select: auto;">
-                                                                    <i class="fas fa-trash" style="user-select: auto;"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach --}}
-                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Pagination information & items count -->
-                            <div class="dataTables_info" id="dataTableBuilder_info" role="status" aria-live="polite" style="user-select: auto;">
-                                Showing 1 to 9 of 9 entries
+                                <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%; user-select: auto;">
+                                    <table class="table dataTable no-footer" id="dataTableBuilder" width="100%" role="grid" aria-describedby="dataTableBuilder_info" style="width: 100%; user-select: auto;">
+                                        <thead style="user-select: auto;">
+                                            <tr role="row" style="height: 0px; user-select: auto;">
+                                                <th title="Image" class="sorting_desc" rowspan="1" colspan="1" data-column-index="0" style="width: 52.975px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Image">
+                                                    <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Image</div>
+                                                </th>
+                                                <th title="Provider Name" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">
+                                                    <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Provider Name</div>
+                                                </th>
+                                                <th title="Status" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="2" style="width: 55.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Status: activate to sort column ascending">
+                                                    <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Status</div>
+                                                </th>
+                                                <th title="Submitted On" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">
+                                                    <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Submitted On</div>
+                                                </th>
+                                                <th title="Action" width="80px" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="8" style="width: 79.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Action">
+                                                    <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Action</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="user-select: auto;">
+                                            {{-- @foreach ($certificates as $certificate)
+                                                <tr class="{{ $loop->even ? 'even' : 'odd' }}" style="height: 74px; user-select: auto;">
+                                                    <td class="sorting_1" style="user-select: auto;">
+                                                        <img
+                                                            class="rounded"
+                                                            src="{!!
+                                                                asset(sprintf(
+                                                                    'storage/certificates/thumbnails/%s.jpg',
+                                                                    $certificate->ref
+                                                                ))
+                                                            !!}"
+                                                            style="height: 50px; user-select: auto;"
+                                                            alt="image_default"
+                                                        />
+                                                    </td>
+                                                    <td style="user-select: auto;">{{ $certificate->user->name }}</td>
+                                                    <td style="user-select: auto;">
+                                                        @php
+                                                            $badgeColor = "primary";
+                                                            if ($certificate->status === "approved")
+                                                                $badgeColor = "success";
+                                                            else if ($certificate->status === "rejected")
+                                                                $badgeColor = "danger";
+                                                        @endphp
+                                                        <span class="badge badge-{{ $badgeColor }} p-2" style="user-select: auto;">
+                                                            {{ ucfirst($certificate->status) }}
+                                                        </span>
+                                                    </td>
+                                                    <td style="user-select: auto;">
+                                                        <span data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ $certificate->created_at->format('D jS M y (h:i:s A)') }}" style="user-select: auto;">
+                                                            {{ $certificate->created_at->diffForHumans() }}
+                                                        </span>
+                                                    </td>
+                                                    <td style="user-select: auto;"><div class="btn-group btn-group-sm" style="user-select: auto;">
+                                                        <a data-toggle="tooltip" data-placement="left" title="" href="http://34.93.175.233/categories/1/edit" class="btn btn-link" data-original-title="Edit Certificate" style="user-select: auto;">
+                                                            <i class="fas fa-edit" style="user-select: auto;"></i>
+                                                        </a>
+                                                        <form method="POST" action="{!! url('categories/' . $category->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-link text-danger" onclick="return confirm('Are you sure?')" style="user-select: auto;">
+                                                                <i class="fas fa-trash" style="user-select: auto;"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach --}}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                        {{-- @include('certificates.table') --}}
-                        <div class="clearfix"></div>
+                        <!-- Pagination information & items count -->
+                        <div class="dataTables_info" id="dataTableBuilder_info" role="status" aria-live="polite" style="user-select: auto;">
+                            Showing 1 to 9 of 9 entries
+                        </div>
                     </div>
+                    {{-- @include('certificates.table') --}}
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
