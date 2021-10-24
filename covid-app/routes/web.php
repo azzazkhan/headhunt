@@ -72,10 +72,10 @@ Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'UploadController
  */
 Route::middleware('auth')->group(function () {
     Route::get('certificates', function () {
-        
-        return view('certificates.index', [
-            'certificates' => Certificate::all()
-        ]);
+        return 'Show all certificates';
+        // return view('certificates.index', [
+        //     'certificates' => Certificate::all()
+        // ]);
     })->name('certificates.index');
 
     //* Certificate routes
