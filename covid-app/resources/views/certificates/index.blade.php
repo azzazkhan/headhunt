@@ -171,7 +171,7 @@
                                                         <a data-toggle="tooltip" data-placement="left" title="" href="http://34.93.175.233/categories/1/edit" class="btn btn-link" data-original-title="Edit Certificate" style="user-select: auto;">
                                                             <i class="fas fa-edit" style="user-select: auto;"></i>
                                                         </a>
-                                                        <form method="POST" action="{!! url('categories/' . $category->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                        <form method="POST" action="{!! url('categories/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button type="submit" class="btn btn-link text-danger" onclick="return confirm('Are you sure?')" style="user-select: auto;">
