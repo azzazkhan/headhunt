@@ -133,7 +133,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody style="user-select: auto;">
-                                                @foreach ($certificates as $certificate)
+                                                {{-- @foreach ($certificates as $certificate)
                                                     <tr class="{{ $loop->even ? 'even' : 'odd' }}" style="height: 74px; user-select: auto;">
                                                         <td class="sorting_1" style="user-select: auto;">
                                                             <img
@@ -179,7 +179,7 @@
                                                             </form>
                                                         </td>
                                                     </tr>
-                                                @endforeach
+                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                     </div>
