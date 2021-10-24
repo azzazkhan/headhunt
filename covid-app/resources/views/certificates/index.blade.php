@@ -108,8 +108,8 @@
                                                     <th title="Provider Name" class="sorting_disabled" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">Provider Name</th>
                                                     <!-- Status column -->
                                                     <th title="Status" class="sorting_disabled" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 55.4px; user-select: auto;" aria-label="Status: activate to sort column ascending">Status</th>
-                                                    <!-- Submitted on column -->
-                                                    <th title="Submitted On" class="sorting_disabled" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">Submitted On</th>
+                                                    <!-- Submission time column -->
+                                                    <th title="Submission Time" class="sorting_disabled" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; user-select: auto;" aria-label="Submission Time: activate to sort column ascending">Submission Time</th>
                                                     <!-- Actions column -->
                                                     <th title="Action" width="80px" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="8" style="width: 79.4px; user-select: auto;" aria-label="Action">Action</th>
                                                 </tr>
@@ -133,9 +133,9 @@
                                                 <th title="Status" class="sorting_disabled" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="2" style="width: 55.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Status: activate to sort column ascending">
                                                     <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Status</div>
                                                 </th>
-                                                <!-- Submitted on column -->
-                                                <th title="Submitted On" class="sorting_disabled" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">
-                                                    <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Submitted On</div>
+                                                <!-- Submission time column -->
+                                                <th title="Submission Time" class="sorting_disabled" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Submission Time: activate to sort column ascending">
+                                                    <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Submission Time</div>
                                                 </th>
                                                 <!-- Actioins column -->
                                                 <th title="Action" width="80px" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="8" style="width: 79.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Action">
@@ -191,7 +191,7 @@
                                                             {{ ucfirst($certificate->status) }}
                                                         </span>
                                                     </td>
-                                                    <!-- Submitted On -->
+                                                    <!-- Submission Time -->
                                                     <td style="user-select: auto;">
                                                         <span
                                                             data-toggle="tooltip"
