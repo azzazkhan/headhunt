@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
         // return view('certificates.index', [
         //     'certificates' => Certificate::all()
         // ]);
-    })->name('certificates.index');
+    });
 
     //* Certificate routes
     // Route::get('certificates', 'CertificateController@index')->name('certificate.index');
