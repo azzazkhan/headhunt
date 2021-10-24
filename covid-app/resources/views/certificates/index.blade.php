@@ -38,7 +38,7 @@
         <div class="cleaarfix">
             @include('flash::message')
             <div class="card shadow-sm">
-                <div class="card-header">
+                <div class="card-header" style="display: none; visibility: hidden; opacity: 0; height: 0;">
                     <ul class="nav nav-tabs d-flex flex-md-row flex-column-reverse align-items-start card-header-tabs">
                         <div class="d-flex flex-row">
                             <li class="nav-item">
@@ -102,10 +102,15 @@
                                             <!-- Header Row -->
                                             <thead style="user-select: auto;">
                                                 <tr role="row" style="height: 51px; user-select: auto;">
-                                                    <th title="Image" class="sorting_desc" rowspan="1" colspan="1" data-column-index="0" style="width: 52.975px; user-select: auto;" aria-label="Image">Image</th>
-                                                    <th title="Provider Name" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">Provider Name</th>
-                                                    <th title="Status" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 55.4px; user-select: auto;" aria-label="Status: activate to sort column ascending">Status</th>
-                                                    <th title="Submitted On" class="sorting" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">Submitted On</th>
+                                                    <!-- Image column -->
+                                                    <th title="Image" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="0" style="width: 52.975px; user-select: auto;" aria-label="Image">Image</th>
+                                                    <!-- Provider name column -->
+                                                    <th title="Provider Name" class="sorting_disabled" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">Provider Name</th>
+                                                    <!-- Status column -->
+                                                    <th title="Status" class="sorting_disabled" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 55.4px; user-select: auto;" aria-label="Status: activate to sort column ascending">Status</th>
+                                                    <!-- Submitted on column -->
+                                                    <th title="Submitted On" class="sorting_disabled" tabindex="0" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">Submitted On</th>
+                                                    <!-- Actions column -->
                                                     <th title="Action" width="80px" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="8" style="width: 79.4px; user-select: auto;" aria-label="Action">Action</th>
                                                 </tr>
                                             </thead>
@@ -116,18 +121,23 @@
                                     <table class="table dataTable no-footer" id="dataTableBuilder" width="100%" role="grid" aria-describedby="dataTableBuilder_info" style="width: 100%; user-select: auto;">
                                         <thead style="user-select: auto;">
                                             <tr role="row" style="height: 0px; user-select: auto;">
-                                                <th title="Image" class="sorting_desc" rowspan="1" colspan="1" data-column-index="0" style="width: 52.975px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Image">
+                                                <!-- Image column -->
+                                                <th title="Image" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="0" style="width: 52.975px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Image">
                                                     <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Image</div>
                                                 </th>
-                                                <th title="Provider Name" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">
+                                                <!-- Provider name column -->
+                                                <th title="Provider Name" class="sorting_disabled" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="1" style="width: 117.363px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Provider Name: activate to sort column ascending">
                                                     <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Provider Name</div>
                                                 </th>
-                                                <th title="Status" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="2" style="width: 55.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Status: activate to sort column ascending">
+                                                <!-- Status column -->
+                                                <th title="Status" class="sorting_disabled" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="2" style="width: 55.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Status: activate to sort column ascending">
                                                     <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Status</div>
                                                 </th>
-                                                <th title="Submitted On" class="sorting" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">
+                                                <!-- Submitted on column -->
+                                                <th title="Submitted On" class="sorting_disabled" aria-controls="dataTableBuilder" rowspan="1" colspan="1" data-column-index="3" style="width: 170.188px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Submitted On: activate to sort column ascending">
                                                     <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Submitted On</div>
                                                 </th>
+                                                <!-- Actioins column -->
                                                 <th title="Action" width="80px" class="sorting_disabled" rowspan="1" colspan="1" data-column-index="8" style="width: 79.4px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; user-select: auto;" aria-label="Action">
                                                     <div class="dataTables_sizing" style="height: 0px; overflow: hidden; user-select: auto;">Action</div>
                                                 </th>
@@ -136,6 +146,7 @@
                                         <tbody style="user-select: auto;">
                                             @foreach ($certificates as $certificate)
                                                 <tr class="{{ $loop->even ? 'even' : 'odd' }}" style="height: 74px; user-select: auto;">
+                                                    <!-- Image -->
                                                     <td class="sorting_1" style="user-select: auto;">
                                                         <img
                                                             class="rounded"
@@ -149,7 +160,9 @@
                                                             alt="image_default"
                                                         />
                                                     </td>
+                                                    <!-- Provider Name -->
                                                     <td style="user-select: auto;">{{ $certificate->user->name }}</td>
+                                                    <!-- Status -->
                                                     <td style="user-select: auto;">
                                                         @php
                                                             $badgeColor = "primary";
@@ -162,15 +175,38 @@
                                                             {{ ucfirst($certificate->status) }}
                                                         </span>
                                                     </td>
+                                                    <!-- Submitted On -->
                                                     <td style="user-select: auto;">
-                                                        <span data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ $certificate->created_at->format('D jS M y (h:i:s A)') }}" style="user-select: auto;">
+                                                        <span
+                                                            data-toggle="tooltip"
+                                                            data-placement="left"
+                                                            title="{{ $certificate->created_at->format('D jS M y (h:i:s A)') }}"
+                                                            style="user-select: auto;"
+                                                        >
                                                             {{ $certificate->created_at->diffForHumans() }}
                                                         </span>
                                                     </td>
+                                                    <!-- Actions -->
                                                     <td style="user-select: auto;"><div class="btn-group btn-group-sm" style="user-select: auto;">
-                                                        <a data-toggle="tooltip" data-placement="left" title="" href="http://34.93.175.233/categories/1/edit" class="btn btn-link" data-original-title="Edit Certificate" style="user-select: auto;">
-                                                            <i class="fas fa-edit" style="user-select: auto;"></i>
-                                                        </a>
+                                                        <!-- Approve -->
+                                                        <form method="POST" action="{!! url('categories/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                            @method('PUT')
+                                                            @csrf
+                                                            <input type="hidden" name="status" value="approved" />
+                                                            <button type="submit" class="btn btn-link text-success" onclick="return confirm('Are you sure?')" style="user-select: auto;">
+                                                                <i class="fas fa-check" style="user-select: auto;"></i>
+                                                            </button>
+                                                        </form>
+                                                        <!-- Reject -->
+                                                        <form method="POST" action="{!! url('categories/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
+                                                            @method('PUT')
+                                                            @csrf
+                                                            <input type="hidden" name="status" value="rejected" />
+                                                            <button type="submit" class="btn btn-link text-warning" onclick="return confirm('Are you sure?')" style="user-select: auto;">
+                                                                <i class="fas fa-times" style="user-select: auto;"></i>
+                                                            </button>
+                                                        </form>
+                                                        <!-- Delete -->
                                                         <form method="POST" action="{!! url('categories/' . $certificate->ref) !!}" accept-charset="UTF-8" style="user-select: auto;">
                                                             @method('DELETE')
                                                             @csrf
@@ -188,7 +224,7 @@
                         </div>
                         <!-- Pagination information & items count -->
                         <div class="dataTables_info" id="dataTableBuilder_info" role="status" aria-live="polite" style="user-select: auto;">
-                            Showing 1 to 9 of 9 entries
+                            Showing 1 to {{ $certificates->count() }} of {{ $certificates->count() }} entries
                         </div>
                     </div>
                     {{-- @include('certificates.table') --}}
