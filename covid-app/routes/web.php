@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('certificates', function () {
         // return 'Show all certificates';
         return view('certificates.index', [
-            // 'certificates' => Certificate::all()
+            'certificates' => Certificate::all()
         ]);
     })/* ->name('certificates.index') */;
 
