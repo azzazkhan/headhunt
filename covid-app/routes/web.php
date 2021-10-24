@@ -94,6 +94,12 @@ Route::middleware('auth')->group(function () {
         return redirect('/certificates');
     });
 
+    Route::delete('certificates/{certificate:ref}', function (Certificate $certificate) {
+        $certificate->delete();
+
+        return redirect('/certificates');
+    });
+
     // Route::get('certificates', 'CertificateController@index')->name('certificate.index');
     // Route::get('certificates/{certificate}', 'CertificateController@show')
     //      ->name('certificates.show');
