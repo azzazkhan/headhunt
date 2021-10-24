@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('certificates.index') }}">Certificates</a>
+                        <a href="{{ url('certificates') }}">Certificates</a>
                     </li>
                     <li class="breadcrumb-item active">Certificates List</li>
                     </ol>
