@@ -6,7 +6,7 @@
  * Copyright (c) 2021
  */
 
-// use App\Models\Certificate;
+use App\Models\Certificate;
 
 /*
 |--------------------------------------------------------------------------
