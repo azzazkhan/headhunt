@@ -47,7 +47,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            @include('layouts.right_toolbar', compact('dataTable'))
+                            {{-- @include('layouts.right_toolbar', compact('dataTable')) --}}
                         </nav>
                     </div>
                     <div class="card-body">
