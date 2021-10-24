@@ -96,6 +96,7 @@
                             <!-- Content Table -->
                             <div class="dataTables_scroll" style="user-select: none;">
                                 <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%; user-select: auto;">
+                                    <!-- Header Columns -->
                                     <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 1181.2px; padding-right: 0px; user-select: auto;">
                                         <table class="table dataTable no-footer" width="100%" role="grid" style="margin-left: 0px; width: 1181.2px; user-select: auto;">
                                             <!-- Header Row -->
@@ -133,7 +134,7 @@
                                             </tr>
                                         </thead>
                                         <tbody style="user-select: auto;">
-                                            {{-- @foreach ($certificates as $certificate)
+                                            @foreach ($certificates as $certificate)
                                                 <tr class="{{ $loop->even ? 'even' : 'odd' }}" style="height: 74px; user-select: auto;">
                                                     <td class="sorting_1" style="user-select: auto;">
                                                         <img
@@ -179,7 +180,7 @@
                                                         </form>
                                                     </td>
                                                 </tr>
-                                            @endforeach --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
