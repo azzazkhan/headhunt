@@ -61,6 +61,9 @@ Route::resource('options', 'API\OptionAPIController');
 
 // Authenticatable routes
 Route::middleware('auth:api')->group(function () {
+    // Get a provider's certificate status
+    Route::get('provider/{provider}/certificate', 'API\CertificateAPIController@providerCertificateStatus');
+
     // Routes accessible by `Provider`
     Route::group(['middleware' => ['role:provider']], function () {
         Route::prefix('provider')->group(function () {
