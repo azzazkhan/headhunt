@@ -1,4 +1,10 @@
-# Provider API Routes
+# **Global Settings**
+
+### Authorization
+
+Parameter Name | Value           | Type
+-------------- | --------------- | --------------
+Authorization  | Bearer ${token} | Request Header
 
 ### Error Response Structure
 
@@ -7,15 +13,25 @@ Parameter Name | Value                | Type
 success        | false                | Boolean
 message        | Custom error message | String
 
+### Success Response Structure
+
+Parameter Name   | Value                | Type
+---------------- | -------------------- | -------
+success          | true                 | Boolean
+data (Optional)  | [Object]             | JSON Object
+message          | Custom error message | String
+
+# **Provider API Route**
+
 ## [POST] **/api/provider/certificate**
 
-### **Data required**
+### Data required
 
 Parameter Name | Expected Value   | Type
 -------------- | ---------------- | ----
 certificate    | File (Image)     | Request body
 
-### **Success Response**
+### Success Response
 
 Field Name              | Value                  | Type
 ----------------------- | ---------------------- | ----------------------------------
@@ -28,7 +44,7 @@ data.certificate.status | Certificate Status     | String (approved|rejected|pen
 data.certificate.image  | Image URL              | String
 
 
-### **Error Cases**
+### Error Cases
 
 An error response will be send if the following conditions are met.
 
@@ -43,7 +59,7 @@ ____________________________________________________________
 
 ## [GET]  **/api/provider/certificate/my-certificate**
 
-### **Success Response**
+### Success Response
 
 Field Name              | Value                  | Type
 ----------------------- | ---------------------- | ----------------------------------
@@ -56,22 +72,23 @@ data.certificate.status | Certificate Status     | String (approved|rejected|pen
 data.certificate.image  | Image URL              | String
 
 
-### **Error Cases**
+### Error Cases
 
 An error response will be send if the following conditions are met.
 
 1. A JSON 404 response will be sent if the provider has no certificates. **[404 Not Found]**
 
 ____________________________________________________________
+
 ## [GET]  **/api/provider/certificate/{certificateID}**
 
-### **Data required**
+### Data required
 
 Parameter Name | Expected Value | Type
 -------------- | -------------- | ---------------
 certificateID  | Certificate ID | Route Parameter
 
-### **Success Response**
+### Success Response
 
 Field Name              | Value                  | Type
 ----------------------- | ---------------------- | ----------------------------------
@@ -84,9 +101,36 @@ data.certificate.status | Certificate Status     | String (approved|rejected|pen
 data.certificate.image  | Image URL              | String
 
 
-### **Error Cases**
+### Error Cases
 
 An error response will be send if the following conditions are met.
 
 1. An HTML 404 response will be sent if no records exist for provided certificate ID. **[404 Not Found]**
 2. Provider is trying to view the certificate which he/she does not own. **[403 Forbidden]**
+
+____________________________________________________________
+
+# **Customer API Route**
+
+## [GET]  **/api/provider/{providerID}/certificate**
+
+### Data required
+
+Parameter Name | Expected Value   | Type
+-------------- | ---------------- | ---------------
+providerID     | Provider/User ID | Route Parameter
+
+### Success Response
+
+Field Name              | Value                  | Type
+----------------------- | ---------------------- | ----------------------------------
+success                 | true                   | Boolean
+message                 | Custom Response        | String
+data                    | [Object]               | JSON Object
+data.approved           | True or False          | Boolean
+
+### Error Cases
+
+An error response will be send if the following conditions are met.
+
+1. A JSON 404 response will be sent if provider has not submitted a certificate yet. **[404 Not Found]**
