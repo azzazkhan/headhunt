@@ -34,7 +34,7 @@ class Certificate extends Model
      *
      * @var array
      */
-    protected $with = ['user'];
+    // protected $with = ['user'];
 
     public function user(): BelongsTo
     {

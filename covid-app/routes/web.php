@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
     Route::get('certificates', function (Request $request) {
         if (! $request->user()->hasRole('admin')) abort(403);
         return view('certificates.index', [
-            'certificates' => Certificate::all()
+            'certificates' => Certificate::with('user')->all()
         ]);
     });
 
